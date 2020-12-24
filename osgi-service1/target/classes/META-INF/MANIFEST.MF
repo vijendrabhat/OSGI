@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1576047871038
+Build-Jdk: 1.8.0_221
+Built-By: Vijendra.Bhat
+Bundle-Activator: com.baeldung.osgi.sample.service.implementation.Greete
+ rImpl
+Bundle-Description: Parent pom providing dependency and plugin managemen
+ t for applications		built with Maven
+Bundle-License: https://www.apache.org/licenses/LICENSE-2.0
+Bundle-ManifestVersion: 2
+Bundle-Name: osgi-service1
+Bundle-SymbolicName: com.baeldung.osgi-service1
+Bundle-Version: 1.0.0.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Export-Package: com.baeldung.osgi.sample.service.definition;version="1.0
+ .0.SNAPSHOT",com.baeldung.osgi.sample.service.implementation;uses:="com
+ .baeldung.osgi.sample.service.definition,org.osgi.framework";version="1
+ .0.0.SNAPSHOT",com.quaero;version="0.0.1.SNAPSHOT";uses:="org.osgi.fram
+ ework",com.baeldung;version="1.0.0.SNAPSHOT";uses:="com.quaero"
+Import-Package: com.quaero;version="0.0.1.SNAPSHOT",com.baeldung.osgi.sa
+ mple.service.definition,org.osgi.framework;version="[1.8,2)"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.8))"
+Tool: Bnd-3.3.0.201609221906

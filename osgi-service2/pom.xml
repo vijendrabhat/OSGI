@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.baeldung2</groupId>
+    <artifactId>osgi-service2</artifactId>
+    <name>osgi-service2</name>
+    <!-- Please, note this is not the usual 'jar'. -->
+    <packaging>bundle</packaging>
+    <version>1.0-SNAPSHOT</version>
+
+    <parent>
+        <groupId>com.packt</groupId>
+        <artifactId>chapter1-recipe4</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.core</artifactId>
+            <version>6.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+			<groupId>com.quaero</groupId>
+			<artifactId>testjar</artifactId>
+			<version>0.0.2-SNAPSHOT</version>
+		</dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>3.3.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
+                        <Bundle-Name>${project.artifactId}</Bundle-Name>
+                        <Bundle-Version>${project.version}</Bundle-Version>
+                        <Bundle-Activator>com.baeldung2.osgi.sample.service.implementation2.GreeterImpl2</Bundle-Activator>
+                        <Private-Package>com.baeldung2.osgi.sample.service.*</Private-Package>
+                        <Import-Package>com.quaero;version=0.0.2-SNAPSHOT,*</Import-Package>
+                        <Export-Package>!org.osgi.*,com.baeldung2;version=1.0-SNAPSHOT;uses:=com.quaero,*</Export-Package>
+                    </instructions>
+                    <!-- <buildDirectory>target/deploy</buildDirectory> -->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    
+    <profiles>
+        <profile>
+            <id>docker</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <version>0.27.2</version>
+                        <configuration>
+                            <images>
+                                <image>
+                                    <name>${project.groupId}/${project.artifactId}:${project.version}</name>
+                                    <run>
+                                        <ports>
+                                            <port>9015:9015</port>
+                                        </ports>
+                                        <!-- <wait>
+                                            Start container for 5 mins
+                                            <time>300000</time>
+                                        </wait> -->
+                                    </run>
+                                </image>
+                            </images>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>build</goal>
+                                    <goal>start</goal>
+                                    <goal>stop</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>

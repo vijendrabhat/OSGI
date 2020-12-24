@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.baeldung</groupId>
+    <artifactId>osgi-service1</artifactId>
+    <name>osgi-service1</name>
+    <!-- Please, note this is not the usual 'jar'. -->
+    <packaging>bundle</packaging>
+    <version>1.0-SNAPSHOT</version>
+    
+    <parent>
+        <groupId>com.packt</groupId>
+        <artifactId>chapter1-recipe4</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.core</artifactId>
+            <version>6.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+			<groupId>com.quaero</groupId>
+			<artifactId>testjar</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>3.3.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
+                        <Bundle-Name>${project.artifactId}</Bundle-Name>
+                        <Bundle-Version>${project.version}</Bundle-Version>
+                        <Bundle-Activator>com.baeldung.osgi.sample.service.implementation.GreeterImpl</Bundle-Activator>
+                        <Private-Package>com.baeldung.osgi.sample.service.*</Private-Package>
+                        <Import-Package>com.quaero;version=0.0.1-SNAPSHOT,*</Import-Package>
+                        <Export-Package>!org.osgi.*,com.baeldung;version=1.0-SNAPSHOT;uses:=com.quaero,*</Export-Package>
+                    </instructions>
+                    <!-- <buildDirectory>target/deploy</buildDirectory> -->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    
+</project>

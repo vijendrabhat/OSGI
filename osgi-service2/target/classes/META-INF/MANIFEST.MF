@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1576047871836
+Build-Jdk: 1.8.0_221
+Built-By: Vijendra.Bhat
+Bundle-Activator: com.baeldung2.osgi.sample.service.implementation2.Gree
+ terImpl2
+Bundle-Description: Parent pom providing dependency and plugin managemen
+ t for applications		built with Maven
+Bundle-License: https://www.apache.org/licenses/LICENSE-2.0
+Bundle-ManifestVersion: 2
+Bundle-Name: osgi-service2
+Bundle-SymbolicName: com.baeldung2.osgi-service2
+Bundle-Version: 1.0.0.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Export-Package: com.baeldung2.osgi.sample.service.definition2;version="1
+ .0.0.SNAPSHOT",com.baeldung2.osgi.sample.service.implementation2;uses:=
+ "com.baeldung2.osgi.sample.service.definition2,org.osgi.framework";vers
+ ion="1.0.0.SNAPSHOT",com.quaero;version="0.0.2.SNAPSHOT";uses:="org.osg
+ i.framework",com.baeldung2;version="1.0.0.SNAPSHOT";uses:="com.quaero"
+Import-Package: com.quaero;version="0.0.2.SNAPSHOT",com.baeldung2.osgi.s
+ ample.service.definition2,org.osgi.framework;version="[1.8,2)"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.8))"
+Tool: Bnd-3.3.0.201609221906
